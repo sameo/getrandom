@@ -56,6 +56,8 @@ impl Error {
     /// Called from an ES module on Node.js. This is unsupported, see:
     /// <https://docs.rs/getrandom#nodejs-es-module-support>.
     pub const NODE_ES_MODULE: Error = internal_error(14);
+    /// Call to RISC-V SEED failed.
+    pub const RISCV_ZKR_RANDOM: Error = internal_error(15);
 
     /// Codes below this point represent OS Errors (i.e. positive i32 values).
     /// Codes at or above this point, but below [`Error::CUSTOM_START`] are
@@ -174,6 +176,7 @@ fn internal_desc(error: Error) -> Option<&'static str> {
         Error::NODE_CRYPTO => Some("Node.js crypto CommonJS module is unavailable"),
         Error::NODE_RANDOM_FILL_SYNC => Some("Calling Node.js API crypto.randomFillSync failed"),
         Error::NODE_ES_MODULE => Some("Node.js ES modules are not directly supported, see https://docs.rs/getrandom#nodejs-es-module-support"),
+        Error::RISCV_ZKR_RANDOM => Some("RISC-V: SEED reading failed multiple times"),
         _ => None,
     }
 }

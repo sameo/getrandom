@@ -183,6 +183,7 @@
 #![no_std]
 #![warn(rust_2018_idioms, unused_lifetimes, missing_docs)]
 #![cfg_attr(docsrs, feature(doc_cfg))]
+#![feature(asm_const)]
 
 #[macro_use]
 extern crate cfg_if;
@@ -268,6 +269,8 @@ cfg_if! {
                         any(target_arch = "wasm32", target_arch = "wasm64"),
                         target_os = "unknown"))] {
         #[path = "js.rs"] mod imp;
+    } else if #[cfg(all(target_arch = "riscv64", target_os = "none"))] {
+        #[path = "riscv_zkr.rs"] mod imp;
     } else if #[cfg(feature = "custom")] {
         use custom as imp;
     } else if #[cfg(all(any(target_arch = "wasm32", target_arch = "wasm64"),

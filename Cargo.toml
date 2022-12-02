@@ -29,6 +29,11 @@ js-sys = { version = "0.3", optional = true }
 [target.'cfg(all(any(target_arch = "wasm32", target_arch = "wasm64"), target_os = "unknown"))'.dev-dependencies]
 wasm-bindgen-test = "0.3.18"
 
+[target.'cfg(all(target_arch = "riscv64", target_os = "none"))'.dependencies]
+hmac-drbg ={ git = "https://github.com/sameo/rust-hmac-drbg.git", branch = "main" }
+sha2 = { version = "0.10.6", default-features = false }
+typenum = "1.15.0"
+
 [features]
 # Implement std-only traits for getrandom::Error
 std = []
